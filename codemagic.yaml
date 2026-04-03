@@ -8,7 +8,7 @@ workflows:
     scripts:
       - name: Extract lib and assets only
         script: |
-          unzip "final_v5.zip" -d extracted
+          unzip "final_v6.zip" -d extracted
           cp -r extracted/photo_print_studio/lib .
           cp -r extracted/photo_print_studio/assets .
       - name: Get packages
