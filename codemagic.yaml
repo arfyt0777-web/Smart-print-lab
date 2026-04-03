@@ -6,11 +6,13 @@ workflows:
       flutter: stable
       java: 17
     scripts:
-      - name: Extract lib and assets
+      - name: Extract lib and assets only
         script: |
           unzip "smart print.zip" -d extracted
           cp -r extracted/photo_print_studio/lib .
           cp -r extracted/photo_print_studio/assets .
+          cp extracted/photo_print_studio/pubspec.yaml .
+          ls -la lib/
       - name: Get packages
         script: flutter pub get
       - name: Build APK
