@@ -3,12 +3,12 @@ workflows:
     name: Android Release APK
     max_build_duration: 60
     environment:
-      flutter: 3.19.6
+      flutter: stable
       java: 17
     scripts:
       - name: Extract lib and assets only
         script: |
-          unzip "smart print.zip" -d extracted
+          unzip "final_v5.zip" -d extracted
           cp -r extracted/photo_print_studio/lib .
           cp -r extracted/photo_print_studio/assets .
       - name: Get packages
