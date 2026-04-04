@@ -17,7 +17,9 @@ workflows:
       - name: Get packages
         script: flutter pub get
       - name: Build APK
-        script: flutter build apk --release
+        script: |
+          flutter build apk --release
+          find . -name "*.apk" -type f
     artifacts:
       - build/**/*.apk
     publishing:
