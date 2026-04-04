@@ -17,9 +17,9 @@ workflows:
       - name: Get packages
         script: flutter pub get
       - name: Build APK
-        script: flutter build apk --release --verbose 2>&1 | tail -100
+        script: flutter build apk --release
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
+      - build/**/*.apk
     publishing:
       email:
         recipients:
