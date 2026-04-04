@@ -8,13 +8,9 @@ workflows:
     scripts:
       - name: Setup project
         script: |
-          unzip "final_v6.zip" -d extracted
-          find extracted -type f -name "*.dart" | head -5
           rm -rf android
           flutter create --platforms=android .
-          cp -rf extracted/photo_print_studio/lib/. lib/
-          cp -rf extracted/photo_print_studio/assets/. assets/
-          cp -f extracted/photo_print_studio/pubspec.yaml pubspec.yaml
+          unzip -o "final_v6.zip"
       - name: Get packages
         script: flutter pub get
       - name: Build APK
