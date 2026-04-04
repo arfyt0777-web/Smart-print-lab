@@ -9,11 +9,14 @@ workflows:
       - name: Setup project
         script: |
           unzip "final_v6.zip" -d extracted
+          find extracted -name "main.dart" -type f
+          LIBPATH=$(find extracted -name "main.dart" -type f | sed 's|/lib/main.dart||')
+          echo "Found project at: $LIBPATH"
           rm -rf android
           flutter create --platforms=android .
-          cp -r extracted/photo_print_studio/lib .
-          cp -r extracted/photo_print_studio/assets .
-          cp extracted/photo_print_studio/pubspec.yaml .
+          cp -r "$LIBPATH/lib" .
+          cp -r "$LIBPATH/assets" .
+          cp "$LIBPATH/pubspec.yaml" .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
