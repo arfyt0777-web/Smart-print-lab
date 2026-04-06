@@ -12,10 +12,7 @@ workflows:
         script: |
           rm -rf android
           flutter create --platforms=android .
-          unzip -o "final_smartprint.zip" -d extracted
-          cp -r extracted/project/lib .
-          cp -r extracted/project/assets .
-          cp extracted/project/pubspec.yaml .
+          unzip -o "final_smartprint.zip"
       - name: Get packages
         script: flutter pub get
       - name: Build APK
