@@ -15,8 +15,12 @@ workflows:
     scripts:
       - name: Setup project
         script: |
+          rm -rf android
+          flutter create --platforms=android .
           unzip -o "final_smartprint.zip"
-          cp -r bugfix/. .
+          cp -r bugfix/lib .
+          cp -r bugfix/assets .
+          cp bugfix/pubspec.yaml .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
