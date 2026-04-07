@@ -1,42 +1,53 @@
-workflows:
-  android-release:
-    name: SmartPrint Android Release
-    max_build_duration: 60
-    environment:
-      flutter: stable
-      java: 17
-      vars:
-        REMOVE_BG_API_KEY: $REMOVE_BG_API_KEY
-        REMOVE_BG_API_KEY_1: $REMOVE_BG_API_KEY_1
-        REMOVE_BG_API_KEY_2: $REMOVE_BG_API_KEY_2
-        REMOVE_BG_API_KEY_3: $REMOVE_BG_API_KEY_3
-        REMOVE_BG_API_KEY_4: $REMOVE_BG_API_KEY_4
-        REMOVE_BG_API_KEY_5: $REMOVE_BG_API_KEY_5
-    scripts:
-      - name: Setup project
-        script: |
-          rm -rf android
-          flutter create --platforms=android --org com.photoprintstudio --project-name app .
-          unzip -o "final_smartprint.zip"
-          cp -r bugfix/lib .
-          cp -r bugfix/assets .
-          cp bugfix/pubspec.yaml .
-          cp bugfix/android/app/src/main/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-          cp bugfix/android/app/build.gradle android/app/build.gradle
-      - name: Get packages
-        script: flutter pub get
-      - name: Build APK
-        script: |
-          flutter build apk --release \
-            --dart-define=REMOVE_BG_API_KEY=$REMOVE_BG_API_KEY \
-            --dart-define=REMOVE_BG_API_KEY_1=$REMOVE_BG_API_KEY_1 \
-            --dart-define=REMOVE_BG_API_KEY_2=$REMOVE_BG_API_KEY_2 \
-            --dart-define=REMOVE_BG_API_KEY_3=$REMOVE_BG_API_KEY_3 \
-            --dart-define=REMOVE_BG_API_KEY_4=$REMOVE_BG_API_KEY_4 \
-            --dart-define=REMOVE_BG_API_KEY_5=$REMOVE_BG_API_KEY_5
-    artifacts:
-      - "**/*.apk"
-    publishing:
-      email:
-        recipients:
-          - arfyt0777@gmail.com
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29"/>
+
+    <application
+        android:label="Photo Print Studio"
+        android:name="${applicationName}"
+        android:icon="@mipmap/ic_launcher"
+        android:requestLegacyExternalStorage="true"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:hardwareAccelerated="true"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode">
+
+            <meta-data
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"/>
+
+            <meta-data
+                android:name="flutterEmbedding"
+                android:value="2"/>
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+    </application>
+</manifest>
