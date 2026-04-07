@@ -16,11 +16,13 @@ workflows:
       - name: Setup project
         script: |
           rm -rf android
-          flutter create --platforms=android .
+          flutter create --platforms=android --org com.photoprintstudio --project-name app .
           unzip -o "final_smartprint.zip"
           cp -r bugfix/lib .
           cp -r bugfix/assets .
           cp bugfix/pubspec.yaml .
+          cp bugfix/android/app/src/main/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
+          cp bugfix/android/app/build.gradle android/app/build.gradle
       - name: Get packages
         script: flutter pub get
       - name: Build APK
