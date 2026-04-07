@@ -15,20 +15,19 @@ workflows:
     scripts:
       - name: Setup project
         script: |
-          rm -rf android
-          flutter create --platforms=android .
           unzip -o "final_smartprint.zip"
+          cp -r bugfix/. .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
         script: |
           flutter build apk --release \
             --dart-define=REMOVE_BG_API_KEY=$REMOVE_BG_API_KEY \
+            --dart-define=REMOVE_BG_API_KEY_1=$REMOVE_BG_API_KEY_1 \
             --dart-define=REMOVE_BG_API_KEY_2=$REMOVE_BG_API_KEY_2 \
             --dart-define=REMOVE_BG_API_KEY_3=$REMOVE_BG_API_KEY_3 \
             --dart-define=REMOVE_BG_API_KEY_4=$REMOVE_BG_API_KEY_4 \
-            --dart-define=REMOVE_BG_API_KEY_5=$REMOVE_BG_API_KEY_5 \
-            --dart-define=REMOVE_BG_API_KEY_1=$REMOVE_BG_API_KEY_1
+            --dart-define=REMOVE_BG_API_KEY_5=$REMOVE_BG_API_KEY_5
     artifacts:
       - "**/*.apk"
     publishing:
