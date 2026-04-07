@@ -9,4 +9,3 @@ class MainActivity : FlutterActivity() {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
     }
 }
-Commit kar do, phir
