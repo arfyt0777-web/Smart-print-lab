@@ -23,6 +23,8 @@ workflows:
           cp bugfix/pubspec.yaml .
           cp bugfix/android/app/src/main/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
           cp bugfix/android/app/build.gradle android/app/build.gradle
+          mkdir -p android/app/src/main/res/xml
+          cp bugfix/android/app/src/main/res/xml/file_paths.xml android/app/src/main/res/xml/file_paths.xml || true
       - name: Get packages
         script: flutter pub get
       - name: Build APK
