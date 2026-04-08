@@ -15,24 +15,12 @@ workflows:
     scripts:
       - name: Setup project
         script: |
-          rm -rf android
-          flutter create --platforms=android --org com.smartprint --project-name smart_print .
           unzip -o "final_smartprint.zip"
           cp -r bugfix/lib .
-          cp -r bugfix/assets .
+          cp -r bugfix/assets . || true
           cp bugfix/pubspec.yaml .
-          cp bugfix/android/app/src/main/AndroidManifest.xml android/app/src/main/AndroidManifest.xml
-          cp bugfix/android/app/build.gradle android/app/build.gradle
-          cp bugfix/android/build.gradle android/build.gradle
-          cp bugfix/android/settings.gradle android/settings.gradle
-          cp bugfix/android/gradle.properties android/gradle.properties
-          cp bugfix/android/gradle/wrapper/gradle-wrapper.properties android/gradle/wrapper/gradle-wrapper.properties
-          mkdir -p android/app/src/main/res/xml
-          cp bugfix/android/app/src/main/res/xml/file_paths.xml android/app/src/main/res/xml/file_paths.xml || true
-          mkdir -p android/app/src/main/res/values
-          cp bugfix/android/app/src/main/res/values/styles.xml android/app/src/main/res/values/styles.xml
-          mkdir -p android/app/src/main/kotlin/com/smartprint/smart_print
-          cp bugfix/android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt
+          rm -rf android
+          cp -r bugfix/android .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
@@ -50,4 +38,3 @@ workflows:
       email:
         recipients:
           - arfyt0777@gmail.com
-          
