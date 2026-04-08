@@ -13,14 +13,6 @@ workflows:
         REMOVE_BG_API_KEY_4: $REMOVE_BG_API_KEY_4
         REMOVE_BG_API_KEY_5: $REMOVE_BG_API_KEY_5
     scripts:
-      - name: Setup project
-        script: |
-          unzip -o "final_smartprint.zip"
-          cp -r bugfix/lib .
-          cp -r bugfix/assets . || true
-          cp bugfix/pubspec.yaml .
-          rm -rf android
-          cp -r bugfix/android .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
