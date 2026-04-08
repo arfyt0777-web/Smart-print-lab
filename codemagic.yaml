@@ -21,11 +21,17 @@ workflows:
           cp bugfix/pubspec.yaml .
           rm -rf android
           cp -r bugfix/android .
-          cp -r bugfix/android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt || true
           echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
           echo "flutter.sdk=$FLUTTER_ROOT" >> android/local.properties
       - name: Get packages
         script: flutter pub get
+      - name: Fix gradle versions
+        script: |
+          sed -i '' 's/kotlin_version = .*/kotlin_version = '"'"'1.9.22'"'"'/' android/build.gradle
+          sed -i '' 's/com.android.tools.build:gradle:.*/com.android.tools.build:gradle:8.2.2'"'"'/' android/build.gradle
+          sed -i '' 's/gradle-.*-all.zip/gradle-8.4-all.zip/' android/gradle/wrapper/gradle-wrapper.properties
+          cat android/build.gradle
+          cat android/gradle/wrapper/gradle-wrapper.properties
       - name: Build APK
         script: |
           flutter build apk --release \
