@@ -1,31 +1,24 @@
 plugins {
     id "com.android.application"
-    id "org.jetbrains.kotlin.android"
+    id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
-
 android {
-    namespace "com.photoprintstudio.app"
-    compileSdk 34
-
+    namespace "com.smartprint.smart_print"
+    compileSdkVersion 34
+    ndkVersion flutter.ndkVersion
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-
+    kotlinOptions { jvmTarget = '1.8' }
     defaultConfig {
-        applicationId "com.photoprintstudio.app"
-        minSdk 23
-        targetSdk 34
-        versionCode 1
-        versionName "1.0.0"
-        multiDexEnabled true
+        applicationId "com.smartprint.smart_print"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode flutter.versionCode
+        versionName flutter.versionName
     }
-
     buildTypes {
         release {
             signingConfig signingConfigs.debug
@@ -34,7 +27,4 @@ android {
         }
     }
 }
-
-flutter {
-    source = "../.."
-}
+flutter { source '../..' }
