@@ -13,6 +13,17 @@ workflows:
         REMOVE_BG_API_KEY_4: $REMOVE_BG_API_KEY_4
         REMOVE_BG_API_KEY_5: $REMOVE_BG_API_KEY_5
     scripts:
+      - name: Setup project
+        script: |
+          unzip -o "final_smartprint.zip"
+          cp -r bugfix/lib .
+          cp -r bugfix/assets . || true
+          cp bugfix/pubspec.yaml .
+          rm -rf android
+          cp -r bugfix/android .
+          cp -r bugfix/android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt android/app/src/main/kotlin/com/smartprint/smart_print/MainActivity.kt || true
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "flutter.sdk=$FLUTTER_ROOT" >> android/local.properties
       - name: Get packages
         script: flutter pub get
       - name: Build APK
